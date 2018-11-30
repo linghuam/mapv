@@ -1,3 +1,4 @@
+// 顶点着色器
 const VSHADER_SOURCE =
    'attribute vec4 aPosition;\n' +
    'attribute vec4 aColor;\n' +
@@ -9,6 +10,7 @@ const VSHADER_SOURCE =
    '  vColor = aColor;\n' +
    '}\n';
 
+// 片元着色器
 const FSHADER_SOURCE =
    '#ifdef GL_ES\n' +
    'precision mediump float;\n' +

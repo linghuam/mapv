@@ -29,7 +29,8 @@ class GL {
         Dom.appendChild(canvas);
 
         var gl = this.gl = getWebGLContext(canvas);
-
+        
+        // 初始化着色器
         initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE);
         this.gl.ubuffer = gl.createBuffer();
         this.gl.ibuffer = gl.createBuffer();
