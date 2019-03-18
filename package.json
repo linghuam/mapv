@@ -2,10 +2,10 @@
   "name": "Mapv",
   "version": "0.1.0",
   "scripts": {
-    "start": "PORT=8088 pm2 start ./editor/bin/www --name mapv_editor"
+    "start": "PORT=8083 pm2 start ./editor/bin/www --name mapv_editor"
   },
   "devDependencies": {
-    "gulp": "^3.9.0",
+    "gulp": "^3.9.1",
     "gulp-babel": "^5.2.1",
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.6.0",
