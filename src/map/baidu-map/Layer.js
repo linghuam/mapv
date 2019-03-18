@@ -113,24 +113,31 @@ class Layer extends BaseLayer{
         }
 
         var self = this;
-
+        
+        // 动画配置项 options.animation
         var animationOptions = self.options.animation;
-
+        
+        // map 对象
         var map = this.canvasLayer._map;
-
+        
+        // 当前比例尺和投影对象
         var zoomUnit = Math.pow(2, 18 - map.getZoom());
         var projection = map.getMapType().getProjection();
-
+        
+        // 墨卡托平面左上角坐标
         var mcCenter = projection.lngLatToPoint(map.getCenter());
         var nwMc = new BMap.Pixel(mcCenter.x - (map.getSize().width / 2) * zoomUnit, mcCenter.y + (map.getSize().height / 2) * zoomUnit); //左上角墨卡托坐标
 
         var context = this.getContext();
-
+        
+        // 是否开启了动画
         if (self.isEnabledTime()) {
+            // 如果时间不存在，清空画布并退出
             if (time === undefined) {
                 clear(context);
                 return;
             }
+            // 加尾迹效果
             if (this.context == '2d') {
                 context.save();
                 context.globalCompositeOperation = 'destination-out';
@@ -143,13 +150,15 @@ class Layer extends BaseLayer{
         }
 
         if (this.context == '2d') {
+            // 如果是2d渲染，将配置项的属性设置到 canvas 的上下文
             for (var key in self.options) {
                 context[key] = self.options[key];
             }
         } else {
             context.clear(context.COLOR_BUFFER_BIT);
         }
-
+        
+        // 如果地图级别超出范围，退出
         if (self.options.minZoom && map.getZoom() < self.options.minZoom || self.options.maxZoom && map.getZoom() > self.options.maxZoom) {
             return;
         }

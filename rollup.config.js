@@ -11,7 +11,8 @@ export default {
   globals: {
     openlayers: 'ol',
     maptalks: 'maptalks'
-  },
+	},
+	sourceMap: true,
 	plugins: [babel({
 		runtimeHelpers: true
 	})],

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>animation_curve</title>
+
+    <style type="text/css">
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="map"></div>
+    <canvas id="canvas"></canvas>
+
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=1XjLLEhZhQNUzd93EjU5nOGQ"></script>
+    <script type="text/javascript" src="../build/mapv.js"></script>
+
+    <script type="text/javascript">
+        // 百度地图API功能
+        var map = new BMap.Map("map", {
+            enableMapClick: false
+        }); // 创建Map实例
+        map.centerAndZoom(new BMap.Point(105.403119, 38.028658), 5); // 初始化地图,设置中心点坐标和地图级别
+        map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+
+        map.setMapStyle({
+            style: 'midnight'
+        });
+
+        var locations = [{lat: 35, lng: 116}, {lat: 30, lng: 114}, {lat: 40, lng: 100}, {lat: 22, lng: 117}];
+        var COUNT = 800;
+        var curvePoints = mapv.utilCurve.getPoints(locations, {count: COUNT});
+        
+        var interpolate = new mapv.utilDataRangeIntensity({
+            gradient: { 
+                0: "#acb6e5",
+                1.0: "#86fde8"
+            },
+            min: 0,
+            max: 1
+        });
+        
+        var data = [];
+        data.push({
+            geometry: {
+                type: 'LineString',
+                coordinates: curvePoints
+            }
+        });
+        var dataSet = new mapv.DataSet(data);
+
+        var options = {
+            strokeStyle: 'rgba(53,57,255,0.5)',
+            coordType: 'bd09ll',
+            shadowColor: 'rgba(53,57,255,0.2)',
+            shadowBlur: 3,
+            lineWidth: 3.0,
+            count: COUNT,
+            animation: {
+                type: 'time',
+                stepsRange: {
+                    start: 0,
+                    end: 50
+                },
+                trails: 10,
+                duration: 2,
+            },
+            draw: 'simple'
+        }
+        
+        var mapvLayer = new mapv.baiduMapLayer(map, dataSet, options);
+    </script>
+
+</body>
+
+</html>
