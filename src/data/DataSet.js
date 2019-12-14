@@ -333,8 +333,8 @@ DataSet.prototype.getUnique = function (columnName) {
     }
 
     var maps = {};
-
-    for (var i = 1; i < data.length; i++) {
+    
+    for (var i = 0; i < data.length; i++) {
         maps[data[i][columnName]] = true;
     }
 
